@@ -7,12 +7,14 @@ const JwtStrategy = require('passport-jwt').Strategy,
 
 
 
-passport.use(new JwtStrategy({
-  secretOrKey: process.env.JWT_SECRETE,
-  jwtFromRequest : ExtractJwt.fromAuthHeaderAsBearerToken()
-}, async (token, done) => {
+passport.use(
+  new JwtStrategy({
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.JWT_SECRETE,
+  },
+  async (token, done) => {
   try {
-    return done(null, token.user);
+    return done(null, token);
   } catch (error) {
     done(error);
   }
