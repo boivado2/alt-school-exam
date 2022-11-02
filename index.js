@@ -3,6 +3,7 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const authRoute = require('./routes/auth')
 const articleRoute = require('./routes/articles')
+const userRoutes = require('./routes/users')
 const passport = require('passport')
 
 require('./middleware/auth')
@@ -18,6 +19,7 @@ app.use(express.json())
 
 app.use('/auth', authRoute)
 app.use('/articles', articleRoute)
+app.use('/users', passport.authenticate('jwt', {session : false}), userRoutes )
 
 app.get('/', (req, res) => {
   res.send("Hello World")
