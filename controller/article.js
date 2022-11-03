@@ -5,7 +5,22 @@ module.exports = {
   // get all articles
   // access by everyone /GET
   getArticles: async (req, res) => { 
-    const articles = await Article.find()
+    const { author, title, tag } = req.query
+    
+    const queryOptions = {
+      state : 'published'
+    }
+
+    if (author) queryOptions['author.firstName'] = new RegExp(`.*${author}.*`,"i")
+    if (title) queryOptions.title = new RegExp(`.*${title}.*`,"i")
+    if(tag) queryOptions.tags = {"$in" : tag}
+
+    const pageSize = 20
+    const pageNumber = req.query.pageNumber || 1
+    const articles = await Article.find(queryOptions)
+      .skip((pageNumber -1) * pageSize)
+      .limit(pageSize)
+      .sort({readCount : -1, readingTime: -1, createdAt : -1})
     res.send(articles)
   },
   // get a single article /GET/:ID

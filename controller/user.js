@@ -6,6 +6,8 @@ module.exports = {
 
 
     try {     
+
+      const { state } = req.query
     
       const pageNumber = req.query.page || 1
       const pageSize = 4
@@ -13,7 +15,7 @@ module.exports = {
       const article = await Article.find({ "author._id": req.user._id })
         .skip((pageNumber - 1) * pageSize)
         .limit(pageSize)
-        .sort({state : 1})
+        .sort({state : state  === 'draft' ? 1 : -1})
       if(!article) return res.status(404).json({msg : "invalid user."})
       
       res.status(200).json(article)
