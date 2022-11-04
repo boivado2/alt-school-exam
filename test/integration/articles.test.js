@@ -126,7 +126,6 @@ describe('/ articles', () => {
     
     it("should increment the article read count any time endpoint is called", async () => {
       url = url + '/' + article._id
-      console.log(url)
       const res = await supertest(server).get(url)
       expect(res.status).toBe(200)
       expect(res.body.readCount).toBe(1)
@@ -135,14 +134,7 @@ describe('/ articles', () => {
 
 
     it("should save and return the article", async () => {
-      const body =  {
-        title: "early dev of c#",          
-        description: "Breakfast c#",
-        author: user,   
-        tags: ["game", "c#"],
-        state : "published",   
-        body: " The next step is the most complex."
-      }
+
       url = url + '/' + article._id
       const res = await supertest(server).get(url)
       expect(res.status).toBe(200)

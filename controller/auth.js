@@ -1,9 +1,9 @@
 const passport = require("passport")
 const jwt = require('jsonwebtoken')
-
+const pick = require("lodash/pick")
 module.exports = {
   register: (req, res) => {
-    console.log('controller : ',req.user)
+      res.status(200).json({msg : "Register Successfully", user : pick(req.user, ['email', 'firstName', "lastName"])})
   },
   
   login: async (req, res, next) => {
@@ -11,18 +11,14 @@ module.exports = {
         
       if (error) return next(err)
         
-      if (!user) {
-        const error = new Error("Username and Password not valid.")
-        return next(error)
-      }
+      if (!user) return res.status(400).json({msg : "Username and Password not valid."})
 
         try {
           req.login(user, { session: false }, async error => {
             if (error) return next(error)
-            console.log(user)
             const payload = { _id: user._id, email: user.email }
             const token = await user.generateJwtToken(payload)
-            res.setHeader('Authorization', token).json(info)
+            res.setHeader('Authorization', token).json({ user, info})
           })
         } catch (error) {
           return next(error)

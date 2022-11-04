@@ -61,7 +61,6 @@ module.exports = {
 
 
       article.readingTime = calculateReadingTime(article.body)
-      console.log(article)
   
       await article.save()
       res.json(article)

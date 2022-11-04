@@ -34,7 +34,6 @@ passport.use('register', new LocalStrategy({
     let user = await User.findOne({ email })
     if (user) return done(null, false, { message: 'email already exist!' })
 
-    
     user = new User({ email, password, firstName, lastName})
 
     user.password = await user.hashPassword(user.password)
