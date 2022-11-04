@@ -5,10 +5,12 @@ const authRoute = require('./routes/auth')
 const articleRoute = require('./routes/articles')
 const userRoutes = require('./routes/users')
 const passport = require('passport')
+ 
 
 require('./middleware/auth')
 
-mongoose.connect('mongodb://localhost:27017/blogApp').then(() => console.log("db connected successfully")).catch((err) => console.log('db not connected', err))
+
+mongoose.connect(process.env.MONGO_URI).then(() => console.log(`db connected successfully ${process.env.MONGO_URI}`)).catch((err) => console.log('db not connected', err))
 
 
 
@@ -27,4 +29,7 @@ app.get('/', (req, res) => {
 
 
 const PORT = process.env.PORT || 4000
-app.listen(PORT, () => console.log(`server running on ${PORT}`))
+const server = app.listen(PORT, () => console.log(`server running on ${PORT}`))
+
+
+module.exports = server

@@ -22,8 +22,8 @@ userSchema.methods.isValidPassword = async function (password) {
   return await bcrypt.compare(password, user.password)
 }
 
-userSchema.methods.generateJwtToken = async (payload) => {
-  return await jwt.sign(payload, process.env.JWT_SECRETE)
+userSchema.methods.generateJwtToken =  (payload) => {
+  return  jwt.sign(payload, process.env.JWT_SECRETE)
 }
 
 const User = mongoose.model('Users', userSchema)
