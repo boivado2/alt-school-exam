@@ -19,8 +19,9 @@ module.exports = {
         try {
           req.login(user, { session: false }, async error => {
             if (error) return next(error)
+            console.log(user)
             const payload = { _id: user._id, email: user.email }
-            const token = await jwt.sign(payload, process.env.JWT_SECRETE)
+            const token = await user.generateJwtToken(payload)
             res.setHeader('Authorization', token).json(info)
           })
         } catch (error) {

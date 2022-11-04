@@ -1,5 +1,6 @@
 const Article = require('../model/article')
-const {User} = require('../model/user')
+const { User } = require('../model/user')
+const calculateReadingTime = require('../util/calculateReadingTime')
 
 module.exports = {
   // get all articles
@@ -55,8 +56,12 @@ module.exports = {
         state: req.body.state,
         tags: req.body.tags,
         body: req.body.body,
-        readingTime : req.body.readingTime
+        // readingTime : req.body.readingTime
       })
+
+
+      article.readingTime = calculateReadingTime(article.body)
+      console.log(article)
   
       await article.save()
       res.json(article)
