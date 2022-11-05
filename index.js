@@ -1,27 +1,15 @@
 const express = require('express')
 require('dotenv').config()
-const mongoose = require('mongoose')
-const authRoute = require('./routes/auth')
-const articleRoute = require('./routes/articles')
-const userRoutes = require('./routes/users')
-const passport = require('passport')
- 
-
-require('./middleware/auth')
-
-
-mongoose.connect(process.env.MONGO_URI).then(() => console.log(`db connected successfully ${process.env.MONGO_URI}`)).catch((err) => console.log('db not connected', err))
-
-
 
 
 const app = express()
-app.use(express.json())
 
 
-app.use('/auth', authRoute)
-app.use('/articles', articleRoute)
-app.use('/users', passport.authenticate('jwt', {session : false}), userRoutes )
+require("./startup/db")()
+require('./middleware/auth')
+require('./startup/routes')(app)
+
+
 
 app.get('/', (req, res) => {
   res.send("Hello World")
