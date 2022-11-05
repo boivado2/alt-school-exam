@@ -6,7 +6,7 @@ const router = express.Router()
 
 
 // get  route
-router.get('/articles', userController.getArticles)
+router.get('/:id/articles', userController.getArticles)
 
 
 
