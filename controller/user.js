@@ -2,7 +2,7 @@ const { User } = require('../model/user')
 const Article = require('../model/article')
 
 module.exports = {
-  getArticles: async (req, res) => {
+  getArticles: async (req, res, next) => {
     try {     
 
 
@@ -20,7 +20,7 @@ module.exports = {
             
       res.status(200).json(articles)
     } catch (error) {
-      console.log(error)
+      next(error)
       
     }
 

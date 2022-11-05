@@ -37,7 +37,7 @@ module.exports = {
 
   // post a single article /POST
   // access by login users
-  addArticle: async (req, res) => {
+  addArticle: async (req, res, next) => {
 
     try {
 
@@ -66,7 +66,7 @@ module.exports = {
       res.json(article)
       
     } catch (error) {
-      console.log(error)
+      next(error)
       
     }
    
@@ -74,7 +74,7 @@ module.exports = {
 
   // update a single article /PUT
   // access by login users
-  updateArticle: async (req, res) => {
+  updateArticle: async (req, res, next) => {
 
 
     try {
@@ -103,7 +103,7 @@ module.exports = {
       res.status(200).json(article)
       
     } catch (error) {
-      console.log(error)
+      next(error)
       
     }
 
@@ -113,7 +113,7 @@ module.exports = {
 
   // delete a single article /DELETE
   // access by login users 
-  deleteArticle: async (req, res) => {
+  deleteArticle: async (req, res, next) => {
     try {     
 
       let article;
@@ -128,7 +128,7 @@ module.exports = {
      res.status(200).json({msg: "article successfully deleted."})
 
    } catch (error) {
-    console.log(error)
+    next(error)
    }
     
   },
