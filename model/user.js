@@ -23,7 +23,7 @@ userSchema.methods.isValidPassword = async function (password) {
 }
 
 userSchema.methods.generateJwtToken =  (payload) => {
-  return  jwt.sign(payload, process.env.JWT_SECRETE)
+  return  jwt.sign(payload, process.env.JWT_SECRETE, {expiresIn : '1h'} )
 }
 
 const User = mongoose.model('Users', userSchema)

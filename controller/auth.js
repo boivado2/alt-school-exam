@@ -18,6 +18,7 @@ module.exports = {
             if (error) return next(error)
             const payload = { _id: user._id, email: user.email }
             const token = await user.generateJwtToken(payload)
+           user =  pick(user, ['email', 'firstName', "lastName"])
             res.setHeader('Authorization', token).json({ user, info})
           })
         } catch (error) {
