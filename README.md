@@ -260,6 +260,81 @@ Success
 ```
 ---
 
+
+### Get article
+
+- Route: /articles/:id
+- Method: GET
+- Responses
+
+Success
+```
+{
+  "title": "C++ beginners guide",
+  "description": "The guide beginners love to read",
+  "author": {
+    "firstName": "john",
+    "lastName": "doe",
+    "email": "doe@gmai1.com",
+    "_id": "6366f56243c3fbb0184f5e01"
+  },
+  "state": "published",
+  "readCount": 1,
+  "tags": [
+    "game",
+    "c++"
+  ],
+  "body": " The next step is the most complex. It’s where we take the text and then ",
+  "_id": "63683295b7d556d832bb0a05",
+  "readingTime": 1,
+  "createdAt": "2022-11-06T22:17:57.914Z",
+  "updatedAt": "2022-11-06T22:17:57.914Z",
+  "__v": 0
+}
+
+```
+---
+
+### Get all user artilces
+
+- Route: /users/:id/articles
+- Method: GET
+- Header: 
+    - Authorization : Bearer{token}
+- Query params: 
+    - page (default: 1)
+    - per_page (default: 10)
+    - state (default: draft)
+- Responses
+
+Success
+```
+[{
+  "title": "C++ beginners guide",
+  "description": "The guide beginners love to read",
+  "author": {
+    "firstName": "john",
+    "lastName": "doe",
+    "email": "doe@gmai1.com",
+    "_id": "6366f56243c3fbb0184f5e01"
+  },
+  "state": "draft",
+  "readCount": 1,
+  "tags": [
+    "game",
+    "c++"
+  ],
+  "body": " The next step is the most complex. It’s where we take the text and then ",
+  "_id": "63683295b7d556d832bb0a05",
+  "readingTime": 1,
+  "createdAt": "2022-11-06T22:17:57.914Z",
+  "updatedAt": "2022-11-06T22:17:57.914Z",
+  "__v": 0
+}
+]
+```
+---
+
 ...
 
 ## Contributor
